@@ -1,0 +1,4 @@
+databaseChangeLog:
+  - include:
+      # Создание таблиц (account, contributor, project, task).
+      file: db/changelog/db.changelog-1.0.yaml

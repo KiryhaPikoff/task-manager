@@ -1,0 +1,191 @@
+databaseChangeLog:
+  ##############################################< ACCOUNT >###############################################
+  - changeSet:
+      id: 07-07-20_00
+      author: KiryhaPikoff
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            tableExists:
+              tableName: account
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: account_pk
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    unique: true
+                    nullable: false
+                  name: nick
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    unique: true
+                    nullable: false
+                  name: email
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: password
+                  type: VARCHAR(255)
+            tableName: account
+
+  ##############################################< PROJECT >###############################################
+  - changeSet:
+      id: 07-07-20_01
+      author: KiryhaPikoff
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            tableExists:
+              tableName: project
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: project_pk
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: title
+                  type: VARCHAR(255)
+            tableName: project
+
+  ##############################################< CONTRIBUTOR >#########################################
+  - changeSet:
+      id: 07-07-20_02
+      author: KiryhaPikoff
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            tableExists:
+              tableName: contributor
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: contributor_pk
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: account_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: contributor_account_fk
+                    references: account(id)
+              - column:
+                  name: project_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: contributor_project_fk
+                    references: project(id)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: role
+                  type: VARCHAR(255)
+            tableName: contributor
+
+  ##############################################< TASK >##################################################
+  - changeSet:
+      id: 07-07-20_03
+      author: KiryhaPikoff
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            tableExists:
+              tableName: task
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: task_pk
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: title
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: description
+                  type: TEXT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: status
+                  type: VARCHAR(255)
+              - column:
+                  name: start_date
+                  type: timestamp
+              - column:
+                  name: finish_date
+                  type: timestamp
+            tableName: task
+
+  ##############################################< CONTRIBUTOR_TASK >#########################################
+  - changeSet:
+      id: 07-07-20_04
+      author: KiryhaPikoff
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            tableExists:
+              tableName: contributor_task
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  name: contributor_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: contributor_fk
+                    references: contributor(id)
+              - column:
+                  name: task_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: task_fk
+                    references: task(id)
+            tableName: contributor_task
+
+  - changeSet:
+      id: 07-07-20_05
+      author: KiryhaPikoff
+      preConditions:
+        - onFail: MARK_RAN
+          columnExists:
+            tableName: contributor_task
+            columnName: contributor_id
+          columnExists:
+            tableName: contributor_task
+            columnName: task_id
+      changes:
+        - addPrimaryKey:
+            columnNames:  contributor_id, task_id
+            constraintName:  contributor_task_pk
+            tableName:  contributor_task
