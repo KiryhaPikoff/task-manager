@@ -1,29 +1,9 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+Hello, it is task manager api.
 
-### What is this repository for? ###
+You can find all docs that i have in root/doc/ directory.
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+Screen ERD:
 
-### How do I get set up? ###
-
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+![Screen ERD:](https://github.com/KiryhaPikoff/task-manager/blob/master/doc/tm-erd-1.0.png)
