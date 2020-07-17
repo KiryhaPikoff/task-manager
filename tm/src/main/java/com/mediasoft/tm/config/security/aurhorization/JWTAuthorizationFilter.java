@@ -35,6 +35,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
     public JWTAuthorizationFilter(AuthenticationManager authenticationManager, Environment env) {
         super(authenticationManager);
+        String hw = env.getProperty("pikoff.conf.hw");
         this.TOKEN_SECRET = env.getProperty("security.token.secret_key");
         this.TOKEN_HEADER = env.getProperty("security.token.header");
         this.TOKEN_PREFIX = env.getProperty("security.token.prefix");

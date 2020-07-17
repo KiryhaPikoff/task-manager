@@ -1,2 +1,49 @@
-group 'org.mediasoft'
-version '1.0-SNAPSHOT'
+buildscript {
+    ext {
+        springBootVersion = '2.2.8.RELEASE'
+        springCloudVersion = 'Hoxton.SR3'
+    }
+
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+allprojects {
+    group = 'com.mediasoft'
+    version = '1.0-SNAPSHOT'
+
+    apply plugin: 'idea'
+
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+}
+
+subprojects {
+
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        }
+    }
+
+
+    dependencies {
+        annotationProcessor 'org.projectlombok:lombok'
+        implementation('org.springframework.boot:spring-boot-starter-actuator')
+        runtimeOnly('org.springframework.boot:spring-boot-devtools')
+        implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+        compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-config'
+    }
+}

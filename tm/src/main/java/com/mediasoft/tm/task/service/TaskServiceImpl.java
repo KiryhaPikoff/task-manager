@@ -256,7 +256,7 @@ public class TaskServiceImpl implements TaskService {
                     " is already attached to task with id=" + task.getId());
         }
 
-        contributors = contributors.isEmpty() ? new LinkedList<>() : contributors;
+        contributors = Objects.isNull(contributors) ? new LinkedList<>() : contributors;
 
         contributors.add(contributor.get());
 
