@@ -16,7 +16,7 @@ buildscript {
 
 allprojects {
     group = 'com.mediasoft'
-    version = '1.0-SNAPSHOT'
+    version = '1.0'
 
     apply plugin: 'idea'
 

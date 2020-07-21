@@ -1,0 +1,40 @@
+version: '3.7'
+
+services:
+  config-server:
+    build: configuraition-server
+    ports:
+      - 0.0.0.0:8888:8888
+    networks:
+      - local-tm
+
+  discovery-server:
+    build: discovery-server
+    ports:
+      - 0.0.0.0:8761:8761
+    networks:
+      - local-tm
+
+  task-manager:
+    build: tm
+    ports:
+      - 0.0.0.0:8080:8080
+    depends_on:
+      - db
+      - config-server
+      - discovery-server
+    environment:
+      - "SPRING_PROFILES_ACTIVE=dev"
+
+  db:
+    image: postgres:11.4
+    ports:
+      - 0.0.0.0:5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DATABASE: task-manager
+
+networks:
+  local-tm:
+    external: true
