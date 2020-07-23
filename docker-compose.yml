@@ -12,7 +12,7 @@ services:
     build: discovery-server
     ports:
       - 0.0.0.0:8761:8761
-    networks:A  `     AS
+    networks:
       - local-tm
 
   task-manager:
