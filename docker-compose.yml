@@ -12,7 +12,7 @@ services:
     build: discovery-server
     ports:
       - 0.0.0.0:8761:8761
-    networks:
+    networks:A  `     AS
       - local-tm
 
   task-manager:
@@ -24,7 +24,9 @@ services:
       - config-server
       - discovery-server
     environment:
-      - "SPRING_PROFILES_ACTIVE=dev"
+      - "SPRING_PROFILES_ACTIVE=prod"
+    networks:
+      - local-tm
 
   db:
     image: postgres:11.4
@@ -33,7 +35,17 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DATABASE: task-manager
+      POSTGRES_DB: task-manager
+    networks:
+      - local-tm
+
+  rabbit-mq:
+    image: rabbitmq:3.6.6-management
+    ports:
+      - 0.0.0.0:5672:5672
+      - 0.0.0.0:15672:15672
+    networks:
+      - local-tm
 
 networks:
   local-tm:
