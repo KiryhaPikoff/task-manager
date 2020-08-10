@@ -2,51 +2,53 @@ version: '3.7'
 
 services:
   config-server:
+    container_name: config-server
     build: configuraition-server
     ports:
-      - 0.0.0.0:8888:8888
-    networks:
-      - local-tm
+      - 8888:8888
 
   discovery-server:
+    container_name: discovery-server
     build: discovery-server
     ports:
-      - 0.0.0.0:8761:8761
-    networks:
-      - local-tm
+      - 8761:8761
 
   task-manager:
+    container_name: tm
     build: tm
     ports:
-      - 0.0.0.0:8080:8080
+      - 8080:8080
     depends_on:
       - db
       - config-server
       - discovery-server
     environment:
       - "SPRING_PROFILES_ACTIVE=prod"
-    networks:
-      - local-tm
 
   db:
+    container_name: db
     image: postgres:11.4
     ports:
-      - 0.0.0.0:5432:5432
+      - 5432:5432
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: task-manager
-    networks:
-      - local-tm
 
-  rabbit-mq:
-    image: rabbitmq:3.6.6-management
+  zookeeper:
+    container_name: zookeeper
+    image: wurstmeister/zookeeper
     ports:
-      - 0.0.0.0:5672:5672
-      - 0.0.0.0:15672:15672
-    networks:
-      - local-tm
+      - 2181:2181
 
-networks:
-  local-tm:
-    external: true
+  kafka:
+    container_name: kafka
+    image: wurstmeister/kafka
+    ports:
+      - 9092:9092
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_CREATE_TOPICS: "test_topic:1:3"

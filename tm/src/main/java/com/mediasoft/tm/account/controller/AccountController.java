@@ -1,6 +1,7 @@
 package com.mediasoft.tm.account.controller;
 
 import com.mediasoft.tm.account.dto.AccountDto;
+import com.mediasoft.tm.account.dto.test.AccountDTO;
 import com.mediasoft.tm.account.service.AccountService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
@@ -26,6 +27,16 @@ public class AccountController {
     @PreAuthorize("@authDecider.canGetAccount(authentication, #accountId)")
     public ResponseEntity<AccountDto> getById(@PathVariable Long accountId) {
         var account = accountService.getById(accountId);
+        return new ResponseEntity<>(account, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<AccountDTO.Response.Public> getZ() {
+        var account = AccountDTO.Response.Public.builder()
+                .id(999L)
+                .email("a@mail.ru")
+                .nick("MyNick")
+                .build();
         return new ResponseEntity<>(account, HttpStatus.OK);
     }
 
