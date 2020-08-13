@@ -16,7 +16,7 @@
     </logger>
 
     <logger name="org.springframework"
-            level="debug">
+            level="info">
         <appender-ref ref="STDOUT"/>
     </logger>
 

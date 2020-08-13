@@ -1,15 +1,14 @@
-package com.mediasoft.tm;
+package com.mediasoft.tmclient;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-public class TmApplication {
+public class TmClientApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(TmApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(TmClientApplication.class, args);
+    }
 }

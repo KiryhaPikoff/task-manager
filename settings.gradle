@@ -2,4 +2,6 @@ rootProject.name = 'task-manager'
 include 'tm'
 include 'discovery-server'
 include 'configuraition-server'
+include 'tm-client'
+include 'mail-server'
 

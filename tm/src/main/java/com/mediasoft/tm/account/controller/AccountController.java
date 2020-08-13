@@ -1,17 +1,17 @@
 package com.mediasoft.tm.account.controller;
 
 import com.mediasoft.tm.account.dto.AccountDto;
-import com.mediasoft.tm.account.dto.test.AccountDTO;
+import com.mediasoft.tm.account.producer.AccountRegistrationProducer;
+import com.mediasoft.tm.account.producer.dto.RegistrationDataDto;
 import com.mediasoft.tm.account.service.AccountService;
 import lombok.AllArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @RestController
@@ -21,7 +21,7 @@ public class AccountController {
 
     private final AccountService accountService;
 
-    private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
+    private final AccountRegistrationProducer accountRegistrationProducer;
 
     @GetMapping("/{accountId}")
     @PreAuthorize("@authDecider.canGetAccount(authentication, #accountId)")
@@ -30,19 +30,19 @@ public class AccountController {
         return new ResponseEntity<>(account, HttpStatus.OK);
     }
 
-    @GetMapping
-    public ResponseEntity<AccountDTO.Response.Public> getZ() {
-        var account = AccountDTO.Response.Public.builder()
-                .id(999L)
-                .email("a@mail.ru")
-                .nick("MyNick")
-                .build();
-        return new ResponseEntity<>(account, HttpStatus.OK);
-    }
-
     @PostMapping
-    public ResponseEntity create(@RequestBody @Valid AccountDto accountDto) {
+    public ResponseEntity create(HttpServletRequest request,
+                                 @RequestBody @Valid AccountDto accountDto) {
         accountService.create(accountDto);
+
+        var registrationDataDto = RegistrationDataDto.builder()
+                .ip(request.getRemoteAddr())
+                .nick(accountDto.getNick())
+                .email(accountDto.getEmail())
+                .password(accountDto.getPassword())
+                .build();
+        accountRegistrationProducer.sendNewAccountInfo(registrationDataDto);
+
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
