@@ -4,17 +4,18 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Getter
-@Builder
-@RequiredArgsConstructor(onConstructor = @__({@JsonCreator}))
+@Setter
+@RequiredArgsConstructor
 public class RegistrationDataDto {
 
-    private final String ip;
+    private String ip;
 
-    private final String nick;
+    private String nick;
 
-    private final String email;
+    private String email;
 
-    private final String password;
+    private String password;
 }
