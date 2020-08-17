@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>TaskManager</title>
+    <link rel="stylesheet" type="text/css" media="all"
+          href="greeting.css" th:href="@{greeting/greeting.css}" />
+    <style>
+        .view {
+            border: 0;
+            width: 600px;
+            border-collapse: collapse;
+        }
+
+        .logo {
+            width: 100px;
+        }
+
+        .head {
+            text-align: center;
+            display: block;
+            background: #ceeae6;
+            padding-top: 2%;
+            padding-bottom: 2%;
+        }
+
+        .main {
+            padding-left: 5%;
+            padding-right: 5%;
+            background: #f0f1f1;
+        }
+
+        .create-my-first {
+            text-align: center;
+            padding-top: 2%;
+            padding-bottom: 4%;
+        }
+
+        .create-my-first-button {
+            border-radius: 8px;
+            width: 15rem;
+            height: 3rem;
+            border-color: #00afad;
+            background: #bfe7e9;
+        }
+
+        .bottom {
+            font-size: 80%;
+            padding-left: 2%;
+            padding-right: 2%;
+            background: #c9c9c9;
+        }
+
+        .ip {
+            text-align: center;
+            font-size: 70%;
+        }
+
+        .questions {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <table class="view">
+            <tr>
+                <td class="head">
+                    <img class="logo" src="https://lh3.googleusercontent.com/ZlZjB1yjQeXyOAE8xGWiWpvQtYVgELUiKwLT5oMUgyJDSjVocB8IZ4YRq6WO5WyJ4KQ=rw">
+                </td>
+            </tr>
+            <tr>
+                <td class="main">
+                    <div>
+                        <h2>Привет, <span th:text="${nick}"/></h2>
+                        <p>Благодарим Вас за регистрацию в TaskManager</p>
+                        <p>Ваш логин для входа: <span th:text="${email}"/></p></p>
+                    </div>
+
+                    <div class="create-my-first">
+                        <button class="create-my-first-button" type="submit">Создать первый проект</button>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="bottom">
+                    <div>
+                        <p class="questions">Если у Вас возникли вопросы, напишите нам
+                            <a href="task-manager@questions.ru">task-manager@questions.ru</a>,
+                            мы будем рады Вам помочь.</p>
+                        <hr/>
+                        <p class="ip">Registered from IP: <span th:text="${ip}"/></p></p>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </center>
+</body>
+</html>

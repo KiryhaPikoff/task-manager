@@ -1,0 +1,53 @@
+.view {
+    border: 0;
+    width: 600px;
+    border-collapse: collapse;
+}
+
+.logo {
+    width: 100px;
+}
+
+.head {
+    text-align: center;
+    display: block;
+    background: #ceeae6;
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+
+.main {
+    padding-left: 5%;
+    padding-right: 5%;
+    background: #f0f1f1;
+}
+
+.create-my-first {
+    text-align: center;
+    padding-top: 2%;
+    padding-bottom: 4%;
+}
+
+.create-my-first-button {
+    border-radius: 8px;
+    width: 15rem;
+    height: 3rem;
+    border-color: #00afad;
+    background: #bfe7e9;
+}
+
+.bottom {
+    font-size: 80%;
+    padding-left: 2%;
+    padding-right: 2%;
+    background: #c9c9c9;
+}
+
+.ip {
+    text-align: center;
+    font-size: 70%;
+}
+
+.questions {
+    text-align: center;
+}

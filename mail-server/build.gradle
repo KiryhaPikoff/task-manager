@@ -12,6 +12,12 @@ dependencies {
     compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-config'
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-config-client'
 
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-thymeleaf
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf'
+
+    // https://mvnrepository.com/artifact/org.thymeleaf/thymeleaf-spring5
+    compile group: 'org.thymeleaf', name: 'thymeleaf-spring5', version: '3.0.11.RELEASE'
+
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-mail
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-mail'
 
