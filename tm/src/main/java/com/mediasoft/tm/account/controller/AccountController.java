@@ -5,6 +5,7 @@ import com.mediasoft.tm.account.producer.AccountRegistrationProducer;
 import com.mediasoft.tm.account.producer.dto.RegistrationDataDto;
 import com.mediasoft.tm.account.service.AccountService;
 import lombok.AllArgsConstructor;
+import org.apache.kafka.common.protocol.types.Field;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,22 @@ public class AccountController {
     private final AccountService accountService;
 
     private final AccountRegistrationProducer accountRegistrationProducer;
+
+    @GetMapping("/teststringendpoint/{num}")
+    public ResponseEntity<String> testStringEndpoint(@PathVariable Long num) {
+        return new ResponseEntity<>("it works! with num = " + num, HttpStatus.OK);
+    }
+
+    @GetMapping("/testaccountendpoint")
+    public ResponseEntity<AccountDto> testAccountEndpoint() {
+        var account = AccountDto.builder()
+                .id(9999L)
+                .email("testEmail@mail.ru")
+                .nick("testNick")
+                .password("testPW")
+                .build();
+        return new ResponseEntity<>(account, HttpStatus.OK);
+    }
 
     @GetMapping("/{accountId}")
     @PreAuthorize("@authDecider.canGetAccount(authentication, #accountId)")

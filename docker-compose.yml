@@ -32,6 +32,7 @@ services:
     ports:
       - 8081:8080
     depends_on:
+      - task-manager
       - config-server
       - discovery-server
       - kafka
