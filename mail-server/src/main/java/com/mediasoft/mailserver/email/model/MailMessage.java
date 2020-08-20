@@ -1,7 +1,7 @@
 package com.mediasoft.mailserver.email.model;
 
-import lombok.Getter;
 import lombok.Builder;
+import lombok.Getter;
 
 import java.util.Map;
 
